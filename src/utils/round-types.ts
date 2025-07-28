@@ -1,4 +1,4 @@
-import { RoundType, TargetFace } from '@/types';
+import { RoundType, TargetFace, BowType } from '@/types';
 
 // Standard World Archery target faces
 const TARGET_122CM: TargetFace = {
@@ -48,6 +48,34 @@ const TARGET_40CM: TargetFace = {
     { value: 1, innerRadius: 18.0, outerRadius: 20.0, color: '#FFFFFF' },
   ]
 };
+
+// Standard bow types
+const BOW_TYPES: BowType[] = [
+  {
+    id: 'recurve',
+    name: 'Recurve Bow',
+    category: 'recurve',
+    description: 'Traditional recurve bow without mechanical aids'
+  },
+  {
+    id: 'compound',
+    name: 'Compound Bow',
+    category: 'compound',
+    description: 'Modern bow with cams and mechanical advantage'
+  },
+  {
+    id: 'barebow',
+    name: 'Barebow',
+    category: 'barebow',
+    description: 'Recurve bow without sights or stabilizers'
+  },
+  {
+    id: 'traditional',
+    name: 'Traditional Bow',
+    category: 'traditional',
+    description: 'Historical longbow or traditional recurve'
+  }
+];
 
 // Standard round types following World Archery rules
 const ROUND_TYPES: RoundType[] = [
@@ -103,7 +131,8 @@ const ROUND_TYPES: RoundType[] = [
     targetFace: TARGET_80CM,
     arrowsPerEnd: 3,
     totalEnds: 10,
-    maxScore: 300
+    maxScore: 300,
+    isConfigurable: true
   },
   {
     id: 'practice-18m',
@@ -112,7 +141,18 @@ const ROUND_TYPES: RoundType[] = [
     targetFace: TARGET_40CM,
     arrowsPerEnd: 3,
     totalEnds: 10,
-    maxScore: 300
+    maxScore: 300,
+    isConfigurable: true
+  },
+  {
+    id: 'custom-practice',
+    name: 'Custom Practice',
+    distance: 30,
+    targetFace: TARGET_80CM,
+    arrowsPerEnd: 3,
+    totalEnds: 10,
+    maxScore: 300,
+    isConfigurable: true
   }
 ];
 
@@ -156,5 +196,36 @@ export class RoundTypes {
 
   static calculateMaxScore(arrowsPerEnd: number, totalEnds: number): number {
     return arrowsPerEnd * totalEnds * 10;
+  }
+
+  static getAllBowTypes(): BowType[] {
+    return [...BOW_TYPES];
+  }
+
+  static getBowTypeById(id: string): BowType | undefined {
+    return BOW_TYPES.find(bow => bow.id === id);
+  }
+
+  static getBowTypesByCategory(category: string): BowType[] {
+    return BOW_TYPES.filter(bow => bow.category === category);
+  }
+
+  static createCustomRound(
+    distance: number,
+    arrowsPerEnd: number,
+    totalEnds: number,
+    targetSize: number = 80
+  ): RoundType {
+    const targetFace = this.getTargetFace(targetSize) || TARGET_80CM;
+    return {
+      id: `custom-${distance}m-${arrowsPerEnd}x${totalEnds}`,
+      name: `Custom ${distance}m (${arrowsPerEnd}×${totalEnds})`,
+      distance,
+      targetFace,
+      arrowsPerEnd,
+      totalEnds,
+      maxScore: this.calculateMaxScore(arrowsPerEnd, totalEnds),
+      isConfigurable: true
+    };
   }
 }

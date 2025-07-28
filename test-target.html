@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Face Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .target-face {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            margin: 2rem auto;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .target-ring {
+            transition: all 0.2s ease;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        .target-ring.gold {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+        .target-ring.red {
+            background: linear-gradient(45deg, #FF0000, #DC143C);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        .target-ring.blue {
+            background: linear-gradient(45deg, #0000FF, #4169E1);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        .target-ring.black {
+            background: linear-gradient(45deg, #000000, #333333);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        .target-ring.white {
+            background: linear-gradient(45deg, #FFFFFF, #F0F0F0);
+            border: 3px solid #333;
+        }
+        .score-display {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        .arrows-list {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .arrow-score {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid #333;
+        }
+        .arrow-score.gold { background: linear-gradient(45deg, #FFD700, #FFA500); }
+        .arrow-score.red { background: linear-gradient(45deg, #FF0000, #DC143C); color: white; }
+        .arrow-score.blue { background: linear-gradient(45deg, #0000FF, #4169E1); color: white; }
+        .arrow-score.black { background: linear-gradient(45deg, #000000, #333333); color: white; }
+        .arrow-score.white { background: linear-gradient(45deg, #FFFFFF, #F0F0F0); }
+        .arrow-score.miss { background: #e74c3c; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Archery Target Face Test</h1>
+        <p>Click on the target rings to score arrows</p>
+        
+        <div class="target-face" id="target-face">
+            <!-- Target will be rendered here -->
+        </div>
+        
+        <div class="score-display">
+            <div>Current Score: <span id="current-score">0</span></div>
+            <div>Arrows Shot: <span id="arrows-count">0</span>/6</div>
+        </div>
+        
+        <div class="arrows-list" id="arrows-list">
+            <!-- Arrows will be displayed here -->
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="clearArrows()" style="padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">Clear Arrows</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Simple target face data
+        const targetFace = {
+            size: 80,
+            rings: [
+                { value: 10, innerRadius: 0, outerRadius: 4.0, color: '#FFD700' },
+                { value: 9, innerRadius: 4.0, outerRadius: 8.0, color: '#FFD700' },
+                { value: 8, innerRadius: 8.0, outerRadius: 12.0, color: '#FF0000' },
+                { value: 7, innerRadius: 12.0, outerRadius: 16.0, color: '#FF0000' },
+                { value: 6, innerRadius: 16.0, outerRadius: 20.0, color: '#0000FF' },
+                { value: 5, innerRadius: 20.0, outerRadius: 24.0, color: '#0000FF' },
+                { value: 4, innerRadius: 24.0, outerRadius: 28.0, color: '#000000' },
+                { value: 3, innerRadius: 28.0, outerRadius: 32.0, color: '#000000' },
+                { value: 2, innerRadius: 32.0, outerRadius: 36.0, color: '#FFFFFF' },
+                { value: 1, innerRadius: 36.0, outerRadius: 40.0, color: '#FFFFFF' },
+            ]
+        };
+
+        let arrows = [];
+        
+        function scoreArrow(score) {
+            if (arrows.length >= 6) return;
+            
+            arrows.push(score);
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            const currentScore = arrows.reduce((sum, arrow) => {
+                if (arrow === 'X') return sum + 10;
+                if (arrow === 'M') return sum + 0;
+                return sum + (typeof arrow === 'number' ? arrow : parseInt(arrow) || 0);
+            }, 0);
+            
+            document.getElementById('current-score').textContent = currentScore;
+            document.getElementById('arrows-count').textContent = arrows.length;
+            
+            const arrowsList = document.getElementById('arrows-list');
+            arrowsList.innerHTML = '';
+            
+            arrows.forEach(arrow => {
+                const arrowElement = document.createElement('div');
+                arrowElement.className = `arrow-score ${getArrowColorClass(arrow)}`;
+                arrowElement.textContent = arrow === 10 ? 'X' : arrow.toString();
+                arrowsList.appendChild(arrowElement);
+            });
+        }
+        
+        function getArrowColorClass(score) {
+            if (score === 'M') return 'miss';
+            if (score === 'X' || score === 10) return 'gold';
+            if (score === 9) return 'gold';
+            if (score === 8 || score === 7) return 'red';
+            if (score === 6 || score === 5) return 'blue';
+            if (score === 4 || score === 3) return 'black';
+            if (score === 2 || score === 1) return 'white';
+            return 'white';
+        }
+        
+        function getRingColorClass(color) {
+            switch (color.toLowerCase()) {
+                case '#ffd700':
+                case '#ffa500':
+                    return 'gold';
+                case '#ff0000':
+                case '#dc143c':
+                    return 'red';
+                case '#0000ff':
+                case '#4169e1':
+                    return 'blue';
+                case '#000000':
+                case '#333333':
+                    return 'black';
+                case '#ffffff':
+                case '#f0f0f0':
+                    return 'white';
+                default:
+                    return 'white';
+            }
+        }
+        
+        function getFontSize(value) {
+            if (value >= 9) return '1.4rem';
+            if (value >= 7) return '1.2rem';
+            if (value >= 5) return '1.1rem';
+            return '1rem';
+        }
+        
+        function renderTarget() {
+            const container = document.getElementById('target-face');
+            container.innerHTML = '';
+            
+            // Sort rings by value (highest to lowest) so inner rings render on top
+            const sortedRings = [...targetFace.rings].sort((a, b) => b.value - a.value);
+            
+            sortedRings.forEach(ring => {
+                const element = document.createElement('div');
+                element.className = `target-ring ${getRingColorClass(ring.color)}`;
+                
+                // Calculate size and position based on actual archery target proportions
+                const containerSize = 280;
+                const maxRadius = 40.0; // Maximum radius from target data
+                
+                // Calculate outer size
+                const outerSize = (ring.outerRadius / maxRadius) * containerSize;
+                
+                // Position from center
+                const left = (containerSize - outerSize) / 2;
+                const top = (containerSize - outerSize) / 2;
+                
+                element.style.width = `${outerSize}px`;
+                element.style.height = `${outerSize}px`;
+                element.style.left = `${left}px`;
+                element.style.top = `${top}px`;
+                element.style.position = 'absolute';
+                element.style.borderRadius = '50%';
+                element.style.display = 'flex';
+                element.style.alignItems = 'center';
+                element.style.justifyContent = 'center';
+                element.style.fontWeight = '900';
+                element.style.fontSize = getFontSize(ring.value);
+                element.style.cursor = 'pointer';
+                element.style.border = '2px solid #333';
+                element.style.zIndex = ring.value.toString(); // Higher values on top
+                
+                // Add score text
+                element.textContent = ring.value === 10 ? 'X' : ring.value.toString();
+                
+                // Add click handler
+                element.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const score = ring.value === 10 ? 'X' : ring.value;
+                    scoreArrow(score);
+                });
+
+                // Add hover effect
+                element.addEventListener('mouseenter', () => {
+                    element.style.transform = 'scale(1.05)';
+                    element.style.boxShadow = '0 0 0 3px rgba(52, 152, 219, 0.5)';
+                    element.style.zIndex = '20';
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'scale(1)';
+                    element.style.boxShadow = 'none';
+                    element.style.zIndex = ring.value.toString();
+                });
+
+                container.appendChild(element);
+            });
+        }
+        
+        window.clearArrows = function() {
+            arrows = [];
+            updateDisplay();
+        };
+        
+        // Initialize
+        renderTarget();
+        updateDisplay();
+    </script>
+</body>
+</html>

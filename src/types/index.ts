@@ -23,6 +23,14 @@ export interface RoundType {
   arrowsPerEnd: number;
   totalEnds: number;
   maxScore: number;
+  isConfigurable?: boolean; // allows custom arrows per end and total ends
+}
+
+export interface BowType {
+  id: string;
+  name: string;
+  category: 'recurve' | 'compound' | 'barebow' | 'traditional';
+  description: string;
 }
 
 export interface TargetFace {
@@ -52,6 +60,18 @@ export interface SessionMetadata {
   weather?: string;
   equipment?: string;
   notes?: string;
+  bowType?: BowType;
+}
+
+export interface SessionConfiguration {
+  roundType: RoundType;
+  bowType: BowType;
+  arrowsPerEnd: number;
+  totalEnds: number;
+  customSettings?: {
+    allowCustomArrows: boolean;
+    allowCustomEnds: boolean;
+  };
 }
 
 export interface ScoreCalculation {

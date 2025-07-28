@@ -26,32 +26,73 @@
                 </div>
                 
                 <div class="round-selector">
-                    <select id="round-type">
-                        <option value="">Select Round Type</option>
-                    </select>
+                    <div class="selector-group">
+                        <label for="round-type">Round Type</label>
+                        <select id="round-type">
+                            <option value="">Select Round Type</option>
+                        </select>
+                    </div>
+                    
+                    <div class="selector-group">
+                        <label for="bow-type">Bow Type</label>
+                        <select id="bow-type">
+                            <option value="">Select Bow Type</option>
+                        </select>
+                    </div>
+                    
+                    <div class="configuration-options hidden" id="config-options">
+                        <div class="config-group">
+                            <label for="arrows-per-end">Arrows per End</label>
+                            <select id="arrows-per-end">
+                                <option value="3">3 arrows</option>
+                                <option value="6">6 arrows</option>
+                            </select>
+                        </div>
+                        
+                        <div class="config-group">
+                            <label for="total-ends">Total Ends</label>
+                            <select id="total-ends">
+                                <option value="5">5 ends</option>
+                                <option value="10">10 ends</option>
+                                <option value="12">12 ends</option>
+                                <option value="15">15 ends</option>
+                                <option value="20">20 ends</option>
+                            </select>
+                        </div>
+                    </div>
+                    
                     <button id="start-session" disabled>Start Session</button>
                 </div>
                 
                 <div id="scoring-interface" class="scoring-interface hidden">
                     <div class="current-end">
-                        <h3>End <span id="current-end-number">1</span></h3>
-                        <div class="arrow-inputs">
-                            <div class="arrow-input">
-                                <label>Arrow 1</label>
-                                <input type="text" class="score-input" data-arrow="0" maxlength="2">
+                        <h3>End <span id="current-end-number">1</span> of <span id="total-ends-display">10</span></h3>
+                        
+                        <div class="arrow-scoring">
+                            <div class="current-arrow">
+                                <h4>Arrow <span id="current-arrow-number">1</span></h4>
                             </div>
-                            <div class="arrow-input">
-                                <label>Arrow 2</label>
-                                <input type="text" class="score-input" data-arrow="1" maxlength="2">
+                            
+                            <div class="target-face" id="target-face">
+                                <!-- Target rings will be generated dynamically -->
                             </div>
-                            <div class="arrow-input">
-                                <label>Arrow 3</label>
-                                <input type="text" class="score-input" data-arrow="2" maxlength="2">
+                            
+                            <div class="score-buttons">
+                                <button class="score-btn miss-btn" data-score="M">Miss</button>
+                                <button class="score-btn undo-btn" id="undo-arrow">Undo</button>
                             </div>
                         </div>
+                        
+                        <div class="arrow-display">
+                            <h4>Current End Arrows:</h4>
+                            <div class="arrows-list" id="arrows-list">
+                                <!-- Arrow scores will be displayed here -->
+                            </div>
+                        </div>
+                        
                         <div class="end-controls">
                             <button id="complete-end" disabled>Complete End</button>
-                            <button id="clear-end">Clear</button>
+                            <button id="clear-end">Clear End</button>
                         </div>
                     </div>
                     
