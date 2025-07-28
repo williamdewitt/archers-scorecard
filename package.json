@@ -2,6 +2,7 @@
   "name": "archers-scorecard",
   "version": "1.0.0",
   "description": "Digital score keeping for archery practice",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "vite",

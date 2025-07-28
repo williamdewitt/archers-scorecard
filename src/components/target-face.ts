@@ -1,12 +1,10 @@
-import { ArrowScore, TargetFace, ScoringRing } from '@/types';
+import { ArrowScore } from '@/types';
 
 export class TargetFaceComponent {
-  private targetFace: TargetFace;
   private container: HTMLElement;
   private onScoreCallback: (score: ArrowScore) => void;
 
-  constructor(targetFace: TargetFace, container: HTMLElement, onScore: (score: ArrowScore) => void) {
-    this.targetFace = targetFace;
+  constructor(_targetFace: any, container: HTMLElement, onScore: (score: ArrowScore) => void) {
     this.container = container;
     this.onScoreCallback = onScore;
     this.render();
@@ -115,34 +113,6 @@ export class TargetFaceComponent {
     return 'white';
   }
 
-  private getFontSize(value: number): string {
-    if (value >= 9) return '1.4rem';
-    if (value >= 7) return '1.2rem';
-    if (value >= 5) return '1.1rem';
-    return '1rem';
-  }
-
-  private getRingColorClass(color: string): string {
-    switch (color.toLowerCase()) {
-      case '#ffd700':
-      case '#ffa500':
-        return 'gold';
-      case '#ff0000':
-      case '#dc143c':
-        return 'red';
-      case '#0000ff':
-      case '#4169e1':
-        return 'blue';
-      case '#000000':
-      case '#333333':
-        return 'black';
-      case '#ffffff':
-      case '#f0f0f0':
-        return 'white';
-      default:
-        return 'white';
-    }
-  }
 
   public destroy(): void {
     this.container.innerHTML = '';
