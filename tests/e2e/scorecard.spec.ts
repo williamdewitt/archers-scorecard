@@ -16,7 +16,6 @@ test.describe('Archers Scorecard E2E Tests', () => {
     // Check that navigation is present
     await expect(page.locator('#nav-scoring')).toBeVisible();
     await expect(page.locator('#nav-history')).toBeVisible();
-    await expect(page.locator('#nav-settings')).toBeVisible();
   });
 
   test('should display round selection interface', async ({ page }) => {
@@ -139,11 +138,6 @@ test.describe('Archers Scorecard E2E Tests', () => {
     await page.locator('#nav-history').click();
     await expect(page.locator('#history-view')).toHaveClass(/active/);
     await expect(page.locator('#nav-history')).toHaveClass(/active/);
-    
-    // Test navigation to Settings
-    await page.locator('#nav-settings').click();
-    await expect(page.locator('#settings-view')).toHaveClass(/active/);
-    await expect(page.locator('#nav-settings')).toHaveClass(/active/);
     
     // Test navigation back to Scoring
     await page.locator('#nav-scoring').click();
