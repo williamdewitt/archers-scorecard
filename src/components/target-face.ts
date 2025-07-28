@@ -38,7 +38,7 @@ export class TargetFaceComponent {
     gridContainer.style.padding = '20px';
 
     // Create score buttons for each possible score
-    const scores = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 'M'];
+    const scores = ['X', 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 'M'];
     
     scores.forEach(score => {
       const button = this.createScoreButton(score);
@@ -53,7 +53,7 @@ export class TargetFaceComponent {
     button.className = `score-button ${this.getScoreColorClass(score)}`;
     
     // Display X for 10, M for miss, otherwise the score
-    const displayText = score === 10 ? 'X' : score.toString();
+    const displayText = score.toString();
     button.textContent = displayText;
     
     // Styling
@@ -104,8 +104,7 @@ export class TargetFaceComponent {
 
   private getScoreColorClass(score: number | string): string {
     if (score === 'M') return 'miss';
-    if (score === 'X' || score === 10) return 'gold';
-    if (score === 9) return 'gold';
+    if (score === 'X' || score === 10 || score === 9) return 'gold';
     if (score === 8 || score === 7) return 'red';
     if (score === 6 || score === 5) return 'blue';
     if (score === 4 || score === 3) return 'black';
