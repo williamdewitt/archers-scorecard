@@ -6,7 +6,7 @@ describe('RoundTypes', () => {
     it('should return all available round types', () => {
       const rounds = RoundTypes.getAll();
       
-      expect(rounds).toHaveLength(7);
+      expect(rounds).toHaveLength(8);
       expect(rounds[0]).toHaveProperty('id');
       expect(rounds[0]).toHaveProperty('name');
       expect(rounds[0]).toHaveProperty('distance');
@@ -57,7 +57,7 @@ describe('RoundTypes', () => {
     it('should return rounds matching the specified distance', () => {
       const rounds = RoundTypes.getByDistance(30);
       
-      expect(rounds).toHaveLength(2);
+      expect(rounds).toHaveLength(3);
       expect(rounds.every(r => r.distance === 30)).toBe(true);
     });
 

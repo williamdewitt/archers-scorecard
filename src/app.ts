@@ -61,10 +61,6 @@ export class App {
     document.getElementById('nav-history')?.addEventListener('click', () => {
       this.switchView('history');
     });
-    
-    document.getElementById('nav-settings')?.addEventListener('click', () => {
-      this.switchView('settings');
-    });
 
     // Round and bow selection
     const roundSelect = document.getElementById('round-type') as HTMLSelectElement;
@@ -117,20 +113,7 @@ export class App {
       this.undoLastArrow();
     });
 
-    // Miss button
-    document.querySelector('.miss-btn')?.addEventListener('click', () => {
-      this.scoreArrow('M');
-    });
-
     // Settings
-    document.getElementById('export-data')?.addEventListener('click', () => {
-      this.exportData();
-    });
-
-    document.getElementById('import-data')?.addEventListener('click', () => {
-      this.importData();
-    });
-
     document.getElementById('clear-data')?.addEventListener('click', () => {
       this.clearAllData();
     });
@@ -423,8 +406,7 @@ export class App {
 
   private getArrowColorClass(score: ArrowScore): string {
     if (score === 'M') return 'miss';
-    if (score === 'X' || score === 10) return 'gold';
-    if (score === 9) return 'gold';
+    if (score === 'X' || score === 10 || score === 9) return 'gold';
     if (score === 8 || score === 7) return 'red';
     if (score === 6 || score === 5) return 'blue';
     if (score === 4 || score === 3) return 'black';
@@ -581,7 +563,7 @@ export class App {
     this.showSuccess('Session completed successfully!');
   }
 
-  private switchView(view: 'scoring' | 'history' | 'settings'): void {
+  private switchView(view: 'scoring' | 'history'): void {
     const previousView = this.state.currentView;
     this.state.currentView = view;
 
@@ -650,59 +632,6 @@ export class App {
       .join('');
 
     sessionList.innerHTML = sessionsHtml;
-  }
-
-  private async exportData(): Promise<void> {
-    try {
-      const data = {
-        sessions: this.state.sessions,
-        exportDate: new Date().toISOString(),
-        version: '1.0'
-      };
-
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `archers-scorecard-${new Date().toISOString().split('T')[0]}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      
-      URL.revokeObjectURL(url);
-      this.showSuccess('Data exported successfully!');
-    } catch (error) {
-      this.handleError(error as Error);
-    }
-  }
-
-  private async importData(): Promise<void> {
-    try {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json';
-      
-      input.onchange = async (e) => {
-        const file = (e.target as HTMLInputElement).files?.[0];
-        if (!file) return;
-
-        const text = await file.text();
-        const data = JSON.parse(text);
-        
-        if (data.sessions && Array.isArray(data.sessions)) {
-          this.state.sessions = [...this.state.sessions, ...data.sessions];
-          await this.saveAllSessions();
-          this.showSuccess('Data imported successfully!');
-        } else {
-          throw new Error('Invalid data format');
-        }
-      };
-      
-      input.click();
-    } catch (error) {
-      this.handleError(error as Error);
-    }
   }
 
   private async clearAllData(): Promise<void> {
