@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archers Scorecard</title>
+    <meta name="description" content="Digital score keeping for archery practice following World Archery rules">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script type="module" crossorigin src="/archers-scorecard/assets/main-DrL8hjcs.js"></script>
+  <link rel="stylesheet" crossorigin href="/archers-scorecard/assets/main-Cqr60wd3.css">
+</head>
+<body>
+    <div id="app">
+        <header class="app-header">
+            <h1>Archers Scorecard</h1>
+            <nav class="main-nav">
+                <button id="nav-scoring" class="nav-button active">Scoring</button>
+                <button id="nav-history" class="nav-button">History</button>
+                <button id="nav-settings" class="nav-button">Settings</button>
+            </nav>
+        </header>
+        
+        <main class="app-main">
+            <div id="scoring-view" class="view active">
+                <div class="session-info">
+                    <h2>New Session</h2>
+                    <p>Select a round type to begin</p>
+                </div>
+                
+                <div class="round-selector">
+                    <select id="round-type">
+                        <option value="">Select Round Type</option>
+                    </select>
+                    <button id="start-session" disabled>Start Session</button>
+                </div>
+                
+                <div id="scoring-interface" class="scoring-interface hidden">
+                    <div class="current-end">
+                        <h3>End <span id="current-end-number">1</span></h3>
+                        <div class="arrow-inputs">
+                            <div class="arrow-input">
+                                <label>Arrow 1</label>
+                                <input type="text" class="score-input" data-arrow="0" maxlength="2">
+                            </div>
+                            <div class="arrow-input">
+                                <label>Arrow 2</label>
+                                <input type="text" class="score-input" data-arrow="1" maxlength="2">
+                            </div>
+                            <div class="arrow-input">
+                                <label>Arrow 3</label>
+                                <input type="text" class="score-input" data-arrow="2" maxlength="2">
+                            </div>
+                        </div>
+                        <div class="end-controls">
+                            <button id="complete-end" disabled>Complete End</button>
+                            <button id="clear-end">Clear</button>
+                        </div>
+                    </div>
+                    
+                    <div class="score-summary">
+                        <div class="current-scores">
+                            <div class="score-item">
+                                <label>End Total</label>
+                                <span id="end-total">0</span>
+                            </div>
+                            <div class="score-item">
+                                <label>Running Total</label>
+                                <span id="running-total">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="history-view" class="view">
+                <h2>Session History</h2>
+                <div id="session-list">
+                    <p>No sessions recorded yet</p>
+                </div>
+            </div>
+            
+            <div id="settings-view" class="view">
+                <h2>Settings</h2>
+                <div class="settings-group">
+                    <h3>Data Management</h3>
+                    <button id="export-data">Export Data</button>
+                    <button id="import-data">Import Data</button>
+                    <button id="clear-data" class="danger">Clear All Data</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+</body>
+</html>
