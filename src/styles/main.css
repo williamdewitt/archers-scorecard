@@ -1,33 +1,22 @@
-/* CSS Variables */
+/* Custom CSS Variables for Archery-Specific Colors */
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2c3e50;
-  --success-color: #2ecc71;
-  --warning-color: #f39c12;
-  --danger-color: #e74c3c;
-  --text-primary: #2c3e50;
-  --text-secondary: #7f8c8d;
-  --border-color: #bdc3c7;
-  --background-light: #ecf0f1;
+  --archery-gold: #FFD700;
+  --archery-gold-dark: #FFA500;
+  --archery-red: #FF0000;
+  --archery-red-dark: #DC143C;
+  --archery-blue: #0000FF;
+  --archery-blue-dark: #4169E1;
+  --archery-black: #000000;
+  --archery-black-light: #333333;
+  --archery-white: #FFFFFF;
+  --archery-white-dark: #F0F0F0;
+  --archery-miss: #808080;
 }
 
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Prevent zoom on input focus on iOS and improve touch scrolling */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f5f5f5;
-  /* Prevent zoom on input focus on iOS */
   -webkit-text-size-adjust: 100%;
-  /* Prevent pull-to-refresh */
   overscroll-behavior: none;
-  /* Improve touch scrolling */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -36,61 +25,7 @@ body {
   touch-action: manipulation;
 }
 
-/* Layout */
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-header {
-  background: #2c3e50;
-  color: white;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.app-header h1 {
-  margin-bottom: 1rem;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-.main-nav {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.nav-button {
-  background: transparent;
-  border: 2px solid #34495e;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.nav-button:hover {
-  background: #34495e;
-}
-
-.nav-button.active {
-  background: #3498db;
-  border-color: #3498db;
-}
-
-.app-main {
-  flex: 1;
-  padding: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Views */
+/* Views - Bootstrap doesn't handle this pattern */
 .view {
   display: none;
 }
@@ -99,122 +34,7 @@ body {
   display: block;
 }
 
-/* Scoring View */
-.session-info {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.session-info h2 {
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-}
-
-.round-selector {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.round-selector select {
-  width: 100%;
-  max-width: 300px;
-  padding: 0.75rem;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.round-selector button {
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.round-selector button:hover:not(:disabled) {
-  background: #2980b9;
-}
-
-.round-selector button:disabled {
-  background: #bdc3c7;
-  cursor: not-allowed;
-}
-
-/* Scoring Interface */
-.scoring-interface {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.current-end {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.selector-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.selector-group label {
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-size: 1rem;
-}
-
-.configuration-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-}
-
-.config-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.config-group label {
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-/* Arrow Scoring Interface */
-.arrow-scoring {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.current-arrow h4 {
-  text-align: center;
-  font-size: 1.2rem;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-/* Target Face */
+/* Target Face - Archery-specific component */
 .target-face {
   position: relative;
   width: 280px;
@@ -232,84 +52,33 @@ body {
 }
 
 .target-ring.gold {
-  background: linear-gradient(45deg, #FFD700, #FFA500);
+  background: linear-gradient(45deg, var(--archery-gold), var(--archery-gold-dark));
 }
 
 .target-ring.red {
-  background: linear-gradient(45deg, #FF0000, #DC143C);
+  background: linear-gradient(45deg, var(--archery-red), var(--archery-red-dark));
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .target-ring.blue {
-  background: linear-gradient(45deg, #0000FF, #4169E1);
+  background: linear-gradient(45deg, var(--archery-blue), var(--archery-blue-dark));
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .target-ring.black {
-  background: linear-gradient(45deg, #000000, #333333);
+  background: linear-gradient(45deg, var(--archery-black), var(--archery-black-light));
   color: white;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .target-ring.white {
-  background: linear-gradient(45deg, #FFFFFF, #F0F0F0);
+  background: linear-gradient(45deg, var(--archery-white), var(--archery-white-dark));
   border: 3px solid #333;
 }
 
-/* Score Buttons */
-.score-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.score-btn {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 100px;
-}
-
-.undo-btn {
-  background: #95a5a6;
-  color: white;
-}
-
-.undo-btn:hover {
-  background: #7f8c8d;
-  transform: translateY(-2px);
-}
-
-.undo-btn:disabled {
-  background: #bdc3c7;
-  cursor: not-allowed;
-  transform: none;
-}
-
 /* Arrow Display */
-.arrow-display {
-  margin: 1.5rem 0;
-  text-align: center;
-}
-
-.arrow-display h4 {
-  margin-bottom: 1rem;
-  color: var(--text-secondary);
-}
-
-.arrows-list {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
 .arrow-score {
   display: inline-flex;
   align-items: center;
@@ -324,581 +93,37 @@ body {
 }
 
 .arrow-score.gold {
-  background: linear-gradient(45deg, #FFD700, #FFA500);
+  background: linear-gradient(45deg, var(--archery-gold), var(--archery-gold-dark));
 }
 
 .arrow-score.red {
-  background: linear-gradient(45deg, #FF0000, #DC143C);
+  background: linear-gradient(45deg, var(--archery-red), var(--archery-red-dark));
   color: white;
 }
 
 .arrow-score.blue {
-  background: linear-gradient(45deg, #0000FF, #4169E1);
+  background: linear-gradient(45deg, var(--archery-blue), var(--archery-blue-dark));
   color: white;
 }
 
 .arrow-score.black {
-  background: linear-gradient(45deg, #000000, #333333);
+  background: linear-gradient(45deg, var(--archery-black), var(--archery-black-light));
   color: white;
 }
 
 .arrow-score.white {
-  background: linear-gradient(45deg, #FFFFFF, #F0F0F0);
+  background: linear-gradient(45deg, var(--archery-white), var(--archery-white-dark));
 }
 
 .arrow-score.miss {
-  background: #808080;
+  background: var(--archery-miss);
   color: white;
 }
-
-.end-controls {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.end-controls button {
-  flex: 1;
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#complete-end {
-  background: var(--success-color);
-  color: white;
-}
-
-#complete-end:hover:not(:disabled) {
-  background: #27ae60;
-  transform: translateY(-2px);
-}
-
-#complete-end:disabled {
-  background: #bdc3c7;
-  cursor: not-allowed;
-}
-
-#clear-end {
-  background: var(--warning-color);
-  color: white;
-}
-
-#clear-end:hover {
-  background: #e67e22;
-  transform: translateY(-2px);
-}
-
-#clear-end:hover {
-  background: #7f8c8d;
-}
-
-/* Score Summary */
-.score-summary {
-  padding: 2rem;
-  background: #f8f9fa;
-}
-
-.current-scores {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-}
-
-.score-item {
-  text-align: center;
-  padding: 1rem;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.score-item label {
-  display: block;
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.5rem;
-}
-
-.score-item span {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-/* History View */
-.session-item {
-  background: white;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.session-item h3 {
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-}
-
-.session-item p {
-  margin-bottom: 0.25rem;
-  color: #666;
-}
-
-/* Settings View */
-.settings-group {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
-}
-
-.settings-group h3 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
-}
-
-.settings-group button {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-  border: 2px solid #3498db;
-  background: white;
-  color: #3498db;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.settings-group button:hover {
-  background: #3498db;
-  color: white;
-}
-
-.settings-group button.danger {
-  border-color: #e74c3c;
-  color: #e74c3c;
-}
-
-.settings-group button.danger:hover {
-  background: #e74c3c;
-  color: white;
-}
-
-/* Mobile-first responsive design for field use */
-@media (max-width: 768px) {
-  body {
-    font-size: 18px; /* Larger base font for outdoor visibility */
-  }
-  
-  .app-main {
-    padding: 0.75rem;
-  }
-  
-  .app-header {
-    padding: 1rem 0.75rem;
-    /* Sticky header for easy navigation */
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  
-  .app-header h1 {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .main-nav {
-    gap: 0.5rem;
-  }
-  
-  .nav-button {
-    flex: 1;
-    padding: 0.875rem 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    min-height: 48px; /* Apple's recommended minimum touch target */
-    border-radius: 8px;
-  }
-  
-  /* Enhanced round selector for mobile */
-  .round-selector {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .round-selector select {
-    padding: 1rem;
-    font-size: 1.1rem;
-    min-height: 48px;
-    border-radius: 8px;
-    border-width: 3px;
-  }
-  
-  .round-selector button {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    min-height: 48px;
-    border-radius: 8px;
-  }
-  
-  /* Optimized scoring interface for mobile */
-  .current-end {
-    padding: 1.5rem;
-  }
-  
-  .current-end h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .arrow-inputs {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .arrow-input label {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-  }
-  
-  .score-input {
-    padding: 1.5rem;
-    font-size: 2rem;
-    font-weight: 900;
-    min-height: 80px;
-    border-width: 3px;
-    border-radius: 12px;
-    /* High contrast for outdoor visibility */
-    background: #fff;
-    color: #000;
-  }
-  
-  .score-input:focus {
-    border-color: #2980b9;
-    box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.3);
-  }
-  
-  .score-input.invalid {
-    border-color: #c0392b;
-    background-color: #fadbd8;
-    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.3);
-  }
-  
-  .end-controls {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .end-controls button {
-    width: 100%;
-    padding: 1.25rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    min-height: 56px;
-    border-radius: 12px;
-  }
-  
-  /* Mobile target interface */
-  .target-face {
-    width: 250px;
-    height: 250px;
-  }
-  
-  .target-ring {
-    font-size: 1.4rem;
-    font-weight: 900;
-  }
-  
-  .score-buttons {
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
-  }
-  
-  .score-btn {
-    width: 100%;
-    padding: 1.25rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    min-height: 56px;
-    border-radius: 12px;
-  }
-  
-  .arrow-display h4 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .arrows-list {
-    gap: 0.75rem;
-  }
-  
-  .arrow-score {
-    width: 60px;
-    height: 60px;
-    font-size: 1.4rem;
-    border-width: 3px;
-  }
-  
-  .configuration-options {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .selector-group select,
-  .config-group select {
-    padding: 1rem;
-    font-size: 1.1rem;
-    min-height: 48px;
-    border-radius: 8px;
-    border-width: 3px;
-  }
-  
-  /* Enhanced score summary for mobile */
-  .score-summary {
-    padding: 1.5rem;
-  }
-  
-  .current-scores {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  
-  .score-item {
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  
-  .score-item label {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .score-item span {
-    font-size: 2.5rem;
-    font-weight: 900;
-  }
-  
-  /* History view mobile optimization */
-  .session-item {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border-radius: 12px;
-  }
-  
-  .session-item h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .session-item p {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Settings view mobile optimization */
-  .settings-group {
-    padding: 1.5rem;
-    border-radius: 12px;
-  }
-  
-  .settings-group h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
-  
-  .settings-group button {
-    padding: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    min-height: 48px;
-    border-radius: 8px;
-    border-width: 3px;
-    margin-bottom: 0.75rem;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 16px;
-  }
-  
-  .app-main {
-    padding: 0.5rem;
-  }
-  
-  .current-scores {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .score-item span {
-    font-size: 3rem;
-  }
-  
-  .nav-button {
-    font-size: 0.9rem;
-    padding: 0.75rem 0.25rem;
-  }
-}
-
-/* Touch-friendly improvements and accessibility */
-@media (hover: none) and (pointer: coarse) {
-  /* Ensure all interactive elements meet touch target guidelines */
-  .score-input {
-    min-height: 80px;
-    font-size: 2.2rem;
-    padding: 1.75rem 1rem;
-  }
-  
-  .nav-button,
-  .end-controls button,
-  .round-selector button,
-  .settings-group button {
-    min-height: 48px;
-    padding: 1rem;
-    font-weight: 600;
-  }
-  
-  /* Remove hover effects on touch devices */
-  .nav-button:hover,
-  .round-selector button:hover,
-  .end-controls button:hover,
-  .settings-group button:hover {
-    background: initial;
-  }
-  
-  /* Add active states for better touch feedback */
-  .nav-button:active {
-    background: #34495e;
-    transform: scale(0.98);
-  }
-  
-  .round-selector button:active:not(:disabled) {
-    background: #2980b9;
-    transform: scale(0.98);
-  }
-  
-  #complete-end:active:not(:disabled) {
-    background: #229954;
-    transform: scale(0.98);
-  }
-  
-  #clear-end:active {
-    background: #7f8c8d;
-    transform: scale(0.98);
-  }
-  
-  .score-input:active {
-    transform: scale(1.02);
-  }
-}
-
-/* High contrast mode for bright outdoor conditions */
-@media (prefers-contrast: high) {
-  .score-input {
-    border-width: 4px;
-    background: #ffffff;
-    color: #000000;
-  }
-  
-  .score-input:focus {
-    border-color: #000000;
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .nav-button.active {
-    background: #000000;
-    border-color: #000000;
-    color: #ffffff;
-  }
-}
-
-/* Landscape orientation optimizations for phones */
-@media (max-width: 768px) and (orientation: landscape) {
-  .app-header {
-    padding: 0.5rem 0.75rem;
-  }
-  
-  .app-header h1 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .nav-button {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.9rem;
-  }
-  
-  .current-end {
-    padding: 1rem;
-  }
-  
-  .arrow-inputs {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-  
-  .score-input {
-    padding: 1rem;
-    font-size: 1.8rem;
-    min-height: 70px;
-  }
-  
-  .end-controls {
-    flex-direction: row;
-    gap: 1rem;
-  }
-  
-  .end-controls button {
-    padding: 1rem;
-    font-size: 1rem;
-    min-height: 48px;
-  }
-}
-
-/* Utility classes */
-.hidden {
-  display: none !important;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
 
 /* Score Button Grid Styles */
-.target-face-grid {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
 .score-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   max-width: 400px;
   margin: 0 auto;
@@ -919,42 +144,41 @@ body {
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: #2c3e50;
-  text-shadow: none;
 }
 
 .score-button.gold {
-  background: linear-gradient(45deg, #FFD700, #FFA500);
+  background: linear-gradient(45deg, var(--archery-gold), var(--archery-gold-dark));
   color: #2c3e50;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .score-button.red {
-  background: linear-gradient(45deg, #FF0000, #DC143C);
+  background: linear-gradient(45deg, var(--archery-red), var(--archery-red-dark));
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .score-button.blue {
-  background: linear-gradient(45deg, #0000FF, #4169E1);
+  background: linear-gradient(45deg, var(--archery-blue), var(--archery-blue-dark));
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .score-button.black {
-  background: linear-gradient(45deg, #000000, #333333);
+  background: linear-gradient(45deg, var(--archery-black), var(--archery-black-light));
   color: white;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .score-button.white {
-  background: linear-gradient(45deg, #FFFFFF, #F0F0F0);
+  background: linear-gradient(45deg, var(--archery-white), var(--archery-white-dark));
   color: #2c3e50;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
   border-color: #2c3e50;
 }
 
 .score-button.miss {
-  background: linear-gradient(45deg, #888888, #808080);
+  background: linear-gradient(45deg, #888888, var(--archery-miss));
   color: #2c3e50;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
@@ -997,5 +221,26 @@ body {
     height: 85px;
     font-size: 26px;
     border-radius: 12px;
+  }
+}
+
+/* High contrast mode for bright outdoor conditions */
+@media (prefers-contrast: high) {
+  .score-input {
+    border-width: 4px;
+    background: #ffffff;
+    color: #000000;
+  }
+  
+  .score-input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .score-button {
+    min-height: 48px;
   }
 }

@@ -125,6 +125,15 @@ const ROUND_TYPES: RoundType[] = [
     maxScore: 600
   },
   {
+    id: '18m-40cm-ifaa-indoor',
+    name: '18m Round (IFAA Indoor)',
+    distance: 18,
+    targetFace: TARGET_40CM,
+    arrowsPerEnd: 5,
+    totalEnds: 6,
+    maxScore: 150
+  },
+  {
     id: 'practice-30m',
     name: 'Practice 30m',
     distance: 30,

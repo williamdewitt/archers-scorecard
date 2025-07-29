@@ -38,7 +38,7 @@ export class TargetFaceComponent {
     gridContainer.style.padding = '20px';
 
     // Create score buttons for each possible score
-    const scores = ['X', 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 'M'];
+    const scores = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 'X', 'M'];
     
     scores.forEach(score => {
       const button = this.createScoreButton(score);
@@ -73,7 +73,7 @@ export class TargetFaceComponent {
     // Add click handler
     button.addEventListener('click', (e) => {
       e.preventDefault();
-      const arrowScore: ArrowScore = score === 10 ? 'X' : score as ArrowScore;
+      const arrowScore: ArrowScore = score as ArrowScore;
       this.onScoreCallback(arrowScore);
     });
 

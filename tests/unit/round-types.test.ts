@@ -6,7 +6,7 @@ describe('RoundTypes', () => {
     it('should return all available round types', () => {
       const rounds = RoundTypes.getAll();
       
-      expect(rounds).toHaveLength(8);
+      expect(rounds).toHaveLength(9);
       expect(rounds[0]).toHaveProperty('id');
       expect(rounds[0]).toHaveProperty('name');
       expect(rounds[0]).toHaveProperty('distance');

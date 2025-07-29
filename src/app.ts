@@ -183,7 +183,7 @@ export class App {
     console.log('Round type changed:', roundSelect.value);
     
     if (!roundSelect.value) {
-      configOptions?.classList.add('hidden');
+      configOptions?.classList.add('d-none');
       this.updateStartButtonState();
       return;
     }
@@ -193,11 +193,11 @@ export class App {
     
     if (roundType?.isConfigurable) {
       console.log('Round type is configurable, showing options');
-      configOptions?.classList.remove('hidden');
+      configOptions?.classList.remove('d-none');
       this.populateConfigurationOptions(roundType);
     } else {
       console.log('Round type is not configurable, hiding options');
-      configOptions?.classList.add('hidden');
+      configOptions?.classList.add('d-none');
     }
 
     this.updateStartButtonState();
@@ -294,12 +294,12 @@ export class App {
   }
 
   private showScoringInterface(): void {
-    const roundSelector = document.querySelector('.round-selector') as HTMLElement;
+    const roundSelector = document.querySelector('.card') as HTMLElement;
     const scoringInterface = document.getElementById('scoring-interface') as HTMLElement;
     
     if (roundSelector) roundSelector.style.display = 'none';
     if (scoringInterface) {
-      scoringInterface.classList.remove('hidden');
+      scoringInterface.classList.remove('d-none');
       scoringInterface.style.display = 'block';
     }
 
@@ -539,12 +539,12 @@ export class App {
   }
 
   private showSessionComplete(): void {
-    const roundSelector = document.querySelector('.round-selector') as HTMLElement;
+    const roundSelector = document.querySelector('.card') as HTMLElement;
     const scoringInterface = document.getElementById('scoring-interface') as HTMLElement;
     
     if (roundSelector) roundSelector.style.display = 'block';
     if (scoringInterface) {
-      scoringInterface.classList.add('hidden');
+      scoringInterface.classList.add('d-none');
       scoringInterface.style.display = 'none';
     }
     
@@ -557,7 +557,7 @@ export class App {
     if (roundSelect) roundSelect.value = '';
     if (bowSelect) bowSelect.value = '';
     if (startButton) startButton.disabled = true;
-    if (configOptions) configOptions.classList.add('hidden');
+    if (configOptions) configOptions.classList.add('d-none');
     
     // Show success message
     this.showSuccess('Session completed successfully!');
@@ -568,10 +568,20 @@ export class App {
     this.state.currentView = view;
 
     // Update navigation buttons
-    document.querySelectorAll('.nav-button').forEach(button => {
-      button.classList.remove('active');
-    });
-    document.getElementById(`nav-${view}`)?.classList.add('active');
+    const scoringBtn = document.getElementById('nav-scoring');
+    const historyBtn = document.getElementById('nav-history');
+    
+    if (view === 'scoring') {
+      scoringBtn?.classList.remove('btn-outline-primary');
+      scoringBtn?.classList.add('btn-primary');
+      historyBtn?.classList.remove('btn-primary');
+      historyBtn?.classList.add('btn-outline-primary');
+    } else {
+      historyBtn?.classList.remove('btn-outline-primary');
+      historyBtn?.classList.add('btn-primary');
+      scoringBtn?.classList.remove('btn-primary');
+      scoringBtn?.classList.add('btn-outline-primary');
+    }
 
     // Update view visibility
     document.querySelectorAll('.view').forEach(viewElement => {
@@ -608,7 +618,12 @@ export class App {
     if (!sessionList) return;
 
     if (this.state.sessions.length === 0) {
-      sessionList.innerHTML = '<p>No sessions recorded yet</p>';
+      sessionList.innerHTML = `
+        <div class="text-center text-muted">
+          <i class="bi bi-archive display-4 mb-3"></i>
+          <p class="lead">No sessions recorded yet</p>
+        </div>
+      `;
       return;
     }
 
@@ -618,14 +633,26 @@ export class App {
         const total = session.ends.reduce((sum, end) => sum + end.total, 0);
         const date = new Date(session.startTime).toLocaleDateString();
         const bowType = session.metadata.bowType?.name || 'Unknown';
+        const percentage = Math.round((total / session.roundType.maxScore) * 100);
         
         return `
-          <div class="session-item">
-            <h3>${session.roundType.name}</h3>
-            <p>Date: ${date}</p>
-            <p>Bow: ${bowType}</p>
-            <p>Score: ${total}/${session.roundType.maxScore}</p>
-            <p>Ends: ${session.ends.length}/${session.roundType.totalEnds}</p>
+          <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">${session.roundType.name}</h5>
+              <span class="badge bg-primary">${percentage}%</span>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <p class="card-text mb-1"><strong>Date:</strong> ${date}</p>
+                  <p class="card-text mb-1"><strong>Bow:</strong> ${bowType}</p>
+                </div>
+                <div class="col-md-6">
+                  <p class="card-text mb-1"><strong>Score:</strong> ${total}/${session.roundType.maxScore}</p>
+                  <p class="card-text mb-1"><strong>Ends:</strong> ${session.ends.length}/${session.roundType.totalEnds}</p>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       })
